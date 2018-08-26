@@ -48,6 +48,37 @@ prod_b<-function(bse,x,y){
 
 sum_b(5,1403,424)
 
-prod_b(5,123,14)
+prod_b(5,42,12)
 
-prod_b(5,31,3)
+prod_b(5,12,14)
+
+####function to generate random exercises
+random_bin<-function(bse,dgts,op){
+  a<-sample(0:(bse-1),dgts,replace = T)
+  b<-sample(0:(bse-1),dgts,replace = T)
+  achr<-paste0(a,collapse = "")
+  bchr<-paste0(b,collapse = "")
+  if(op=="sum"){
+    opchr<-"+"
+    res2<-sum_b(bse,a,b)
+  }else
+    {
+    opchr<-"*"
+    res2<-prod_b(bse,a,b)  
+    }
+  res1<-paste0(achr,opchr,bchr)
+  return(list(op=res1,res=res2))
+}
+
+library("conf.design")
+
+factorize_bse<-function(bse,x){
+  x_10<-fromx_to_10(bse,x)
+  fprime<-conf.design::factorize(x_10)
+  return(purrr::map_dbl(fprime,~from10_to_x(bse,.)))
+}
+
+factorize_bse(5,124)
+random_bin(5,2,"*")
+random_bin(5,2,"sum")
+reduce(c(2,2,3,10),prod_b,bse=5)

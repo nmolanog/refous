@@ -89,6 +89,7 @@ get_all_div_b<-function(bse,x){
     comb_list[[i-1]]<-t(combn(f_prime,i))
   }
   res<-comb_list%>%map(~apply(.,1,function(x){reduce(x,function(z,y){prod_b(5,z,y)})}))%>%unlist%>%unique
+  res<-sort(unique(c(res,f_prime)))
   return(res)
 }
 

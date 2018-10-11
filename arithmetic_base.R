@@ -1,5 +1,10 @@
 rm(list=ls())
-library(tidyverse)
+list.of.packages <- c("pacman")
+new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
+if(length(new.packages)) install.packages(new.packages)
+library(pacman)
+p_load(tidyverse)
+p_load(conf.design)
 fromx_to_10<-function(bse,x){
   x%>%as.character()%>%strsplit("")%>%unlist%>%as.numeric()->sep_digits
   if(any(sep_digits>=bse)){stop(paste("error: ", sep_digits[sep_digits>=bse], "are not digits for the given base"))}
@@ -46,11 +51,10 @@ prod_b<-function(bse,x,y){
   return(from10_to_x(bse,sum_N))
 }
 
-sum_b(5,1403,424)
-
-prod_b(5,42,12)
-
-prod_b(5,12,14)
+div_b<-function(bse,x,y){
+  fromx_to_10(bse,x)/fromx_to_10(bse,y)->sum_N
+  return(from10_to_x(bse,sum_N))
+}
 
 ####function to generate random exercises
 random_bin<-function(bse,dgts,op){
@@ -78,7 +82,30 @@ factorize_bse<-function(bse,x){
   return(purrr::map_dbl(fprime,~from10_to_x(bse,.)))
 }
 
-factorize_bse(5,124)
+get_all_div_b<-function(bse,x){
+  comb_list<-list()
+  f_prime<-factorize_bse(bse,x)
+  for(i in seq_along(f_prime)[-c(1,length(f_prime))]){
+    comb_list[[i-1]]<-t(combn(f_prime,i))
+  }
+  res<-comb_list%>%map(~apply(.,1,function(x){reduce(x,function(z,y){prod_b(5,z,y)})}))%>%unlist%>%unique
+  return(res)
+}
+
+###examples
 random_bin(5,2,"*")
 random_bin(5,2,"sum")
-reduce(c(2,2,3,10),prod_b,bse=5)
+
+prod_b(5,2,31)
+div_b(5,121,3)
+
+sum_b(5,1403,424)
+prod_b(5,42,12)
+prod_b(5,12,14)
+
+factorize_bse(5,124)
+
+get_all_div_b(5,314)
+get_all_div_b(5,220)
+
+

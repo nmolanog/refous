@@ -1,0 +1,11 @@
+Package: refous
+Title: Implementation of some task done in refous school.
+Version: 0.0.0.9000
+Authors@R: person("Nicolas", "Molano", email = "nmolanog@gmai.com", role = c("aut", "cre"))
+Description: Implementation of some task done in refous school. For now some change of basis operatios are covered.
+Depends: R (>= 3.4.4)
+Imports: tidyverse, conf.design, purrr, stringr
+License: GNU
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1

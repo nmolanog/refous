@@ -30,7 +30,7 @@ fromx_to_10<-function(bse,x){
 div_int<-function(bse,x){
   div_int<-x%/%bse
   res<-x-div_int*bse
-  return(c(div_int,res))  
+  return(c(div_int,res))
 }
 
 #' from10_to_x Function
@@ -135,7 +135,7 @@ random_bin<-function(bse,dgts,op){
     res2<-sum_b(bse,a,b)
   }else if(op=="prod"){
     opchr<-"*"
-    res2<-prod_b(bse,a,b)  
+    res2<-prod_b(bse,a,b)
     }
   res1<-paste0(achr,opchr,bchr)
   return(list(op=res1,res=res2))
@@ -175,7 +175,7 @@ get_all_div_b<-function(bse,x){
   for(i in seq_along(f_prime)[-c(1,length(f_prime))]){
     comb_list[[i-1]]<-t(combn(f_prime,i))
   }
-  res<-comb_list%>%map(~apply(.,1,function(x){reduce(x,function(z,y){prod_b(5,z,y)})}))%>%unlist%>%unique
+  res<-comb_list%>%purrr::map(~apply(.,1,function(x){purrr::reduce(x,function(z,y){prod_b(5,z,y)})}))%>%unlist%>%unique
   res<-sort(unique(c(res,f_prime)))
   return(res)
 }

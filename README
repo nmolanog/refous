@@ -7,4 +7,4 @@ install.packages("devtools")
 
 To install the package type:
 
-install_github("nmolanog/refous") 
+devtools::install_github("nmolanog/refous")

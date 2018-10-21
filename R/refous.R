@@ -175,7 +175,7 @@ get_all_div_b<-function(bse,x){
   for(i in seq_along(f_prime)[-c(1,length(f_prime))]){
     comb_list[[i-1]]<-t(combn(f_prime,i))
   }
-  res<-comb_list%>%purrr::map(~apply(.,1,function(x){purrr::reduce(x,function(z,y){prod_b(5,z,y)})}))%>%unlist%>%unique
+  res<-comb_list%>%purrr::map(~apply(.,1,function(x){purrr::reduce(x,function(z,y){prod_b(bse,z,y)})}))%>%unlist%>%unique
   res<-sort(unique(c(res,f_prime)))
   return(res)
 }

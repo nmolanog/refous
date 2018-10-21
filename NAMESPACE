@@ -3,6 +3,7 @@
 export(div_b)
 export(factorize_bse)
 export(from10_to_x)
+export(from_x_to_y)
 export(fromx_to_10)
 export(get_all_div_b)
 export(prod_b)

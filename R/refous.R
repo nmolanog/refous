@@ -61,6 +61,24 @@ from10_to_x<-function(bse,x){
   return(rev(newnumber)%>%paste(collapse="")%>%as.numeric())
 }
 
+#' from_x_to_y Function
+#'
+#' this functions converts integers from a given base to another
+#' @param bse1 integer from 2 to 10. Original base of the number
+#' @param bse2 integer from 2 to 10. New base to convert the number
+#' @param x number in base bse
+#' @return integer in base 10
+#' @keywords base
+#' @export
+#' @examples
+#' ###convert 44 in base 5 to base 3
+#' from_x_to_y(5,3,44)
+
+from_x_to_y<-function(bse1,bse2,x){
+  from10_to_x(bse2,fromx_to_10(bse1,x))
+}
+
+
 #' sum_b Function
 #'
 #' this functions does sum in a given base.

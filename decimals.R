@@ -1,5 +1,10 @@
 rm(list=ls())
 library(tidyverse)
+div_int<-function(bse,x){
+  div_int<-x%/%bse
+  res<-x-div_int*bse
+  return(c(div_int,res))
+}
 
 fromx_to_10_v2<-function(bse,x){
   if(x%>%str_detect("\\.")){
@@ -29,6 +34,7 @@ from10_to_x_v2<-function(bse,x,dgts=15){
     for(i in 1:dgts){
       (temp_dec*bse)%>%as.character()%>%strsplit("\\.")%>%unlist->temp_split
       dec_part<-c(dec_part,temp_split[1])
+      if(is.na(temp_split[2])){temp_split[2]<-0}
       temp_dec<-temp_split[2]%>%{paste0(".",.)}%>%as.numeric()
     }
     x0<-as.numeric(break_x[1])
@@ -50,3 +56,13 @@ from10_to_x_v2<-function(bse,x,dgts=15){
 
 from10_to_x_v2(5,54.124)%>%print(digits=20)
 
+from10_to_x_v2(5,7.11)
+
+fromx_to_10_v2(5,2.11)+fromx_to_10_v2(5,3.11)->sum_N
+from10_to_x_v2(5,sum_N)
+
+fromx_to_10_v2(5,13)/fromx_to_10_v2(5,10)->sum_N
+from10_to_x_v2(5,sum_N)
+
+fromx_to_10_v2(5,2.13)*fromx_to_10_v2(5,4)->sum_N
+from10_to_x_v2(5,sum_N)
